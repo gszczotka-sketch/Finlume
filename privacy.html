@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Finlume</title>
+<meta name="description" content="Finlume collects no personal data. Everything you enter stays on your device.">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #0C5F63; --accent: #4FD8C8; --accent-soft: #A2EFF3;
+  --ink-soft: #0A1413; --bg: #F5F9F8; --card: #fff;
+  --text: #171D1D; --text-light: #566; --line: #DCE6E4;
+}
+body {
+  font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.65;
+}
+nav {
+  background: var(--ink-soft); padding: 14px 20px; display: flex;
+  justify-content: space-between; align-items: center;
+}
+nav .logo { color: #fff; font-size: 20px; font-weight: 700; }
+nav .logo span { color: var(--accent); }
+nav a { color: var(--accent-soft); text-decoration: none; font-size: 15px; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 48px 20px 72px; }
+h1 { font-size: 34px; letter-spacing: -.5px; }
+.updated { color: var(--text-light); margin-top: 6px; font-size: 15px; }
+.lead {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--primary);
+  border-radius: 12px; padding: 20px 22px; margin: 26px 0 8px; font-size: 17px;
+}
+h2 { font-size: 22px; margin: 34px 0 10px; color: var(--primary); }
+p, li { color: var(--text); font-size: 16px; }
+p + p { margin-top: 10px; }
+ul { margin: 10px 0 0 22px; }
+li { margin-bottom: 7px; }
+table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 15.5px; }
+th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
+th { background: #EDF4F3; }
+footer { background: var(--ink-soft); color: #9fb5b2; padding: 34px 20px; text-align: center; }
+footer a { color: var(--accent-soft); text-decoration: none; margin: 0 10px; }
+@media (max-width: 600px) {
+  h1 { font-size: 27px; }
+  .wrap { padding: 34px 18px 54px; }
+  table, th, td { font-size: 14.5px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Fin<span>lume</span></div>
+  <a href="index.html">&larr; Back to the app</a>
+</nav>
+
+<div class="wrap">
+  <h1>Privacy Policy</h1>
+  <div class="updated">Last updated: 27 September 2026</div>
+
+  <div class="lead">
+    <strong>Finlume does not collect, store or transmit any personal data.</strong>
+    There is no account, no registration, no analytics and no advertising. Everything you
+    enter — your portfolio, your watchlist, your price alerts and your API keys — stays on
+    your device.
+  </div>
+
+  <h2>1. Who is responsible</h2>
+  <p>Finlume is developed by Grzegorz Szczotka. For any question about this policy, write to
+     <a href="mailto:gszczotka@gmail.com">gszczotka@gmail.com</a>.</p>
+
+  <h2>2. What stays on your device</h2>
+  <p>The following is stored locally, in the app's private storage, and is never sent to us:</p>
+  <ul>
+    <li>your portfolio — companies, number of shares, purchase cost, brokerage account names;</li>
+    <li>your watchlist and the institutions you follow;</li>
+    <li>your price alerts;</li>
+    <li>API keys you enter for outside data providers;</li>
+    <li>app settings, including theme, display currency and update schedule;</li>
+    <li>downloaded SEC data and quotes, kept so the app works without a network.</li>
+  </ul>
+  <p>We have no server, no database of users and no way to see any of this.</p>
+
+  <h2>3. What leaves your device</h2>
+  <p>The app connects only to the sources listed below, and only to fetch data you asked for.
+     No identifier of you or your device is attached to these requests.</p>
+
+  <table>
+    <tr><th>Service</th><th>What is sent</th><th>Why</th></tr>
+    <tr>
+      <td>SEC EDGAR</td>
+      <td>The company or institution identifier being looked up, and a contact e-mail address
+          in the request header, which the SEC requires of every program using its archive.</td>
+      <td>Financial statements, 13F portfolios, insider transactions.</td>
+    </tr>
+    <tr>
+      <td>Finnhub</td>
+      <td>Ticker symbol and your own API key.</td>
+      <td>Share price, share count, 52-week range.</td>
+    </tr>
+    <tr>
+      <td>Alpha Vantage</td>
+      <td>Ticker symbol and your own API key.</td>
+      <td>Analyst price targets, rating spread, earnings calendar.</td>
+    </tr>
+    <tr>
+      <td>Twelve Data</td>
+      <td>Ticker symbol and your own API key.</td>
+      <td>Price history for the chart.</td>
+    </tr>
+    <tr>
+      <td>Google AI Studio</td>
+      <td>The figures from the company's statements shown on screen, plus your own API key.</td>
+      <td>A written summary of those figures, on your explicit request.</td>
+    </tr>
+    <tr>
+      <td>open.er-api.com</td>
+      <td>Nothing beyond the request itself — no key, no identifier.</td>
+      <td>Currency rates, so amounts can be shown in your currency.</td>
+    </tr>
+  </table>
+
+  <p>All of these are optional except SEC EDGAR. Without the keys the app works on SEC data
+     alone; it simply has no quotes, no forecasts and no summaries. You can remove a key at any
+     time in Settings — removing the quote key also deletes the quotes stored on the device,
+     as that provider's terms require.</p>
+
+  <p>Each provider has its own privacy policy, which applies to the requests your key makes:
+     <a href="https://www.sec.gov/privacy">SEC</a>,
+     <a href="https://finnhub.io/privacy-policy">Finnhub</a>,
+     <a href="https://www.alphavantage.co/privacy/">Alpha Vantage</a>,
+     <a href="https://twelvedata.com/privacy">Twelve Data</a>,
+     <a href="https://policies.google.com/privacy">Google</a>.</p>
+
+  <h2>4. Backup</h2>
+  <p>Android's own backup may copy the app's user database — your portfolio, watchlist, alerts
+     and settings — to your Google Drive, in the private area reserved for app data. This is a
+     function of the operating system, not of Finlume; we have no access to it. You can switch
+     it off in your phone's settings under Google &rsaquo; Backup. Downloaded SEC data is
+     excluded from that backup: it can be fetched again, and it is far too large to store.</p>
+
+  <h2>5. Permissions</h2>
+  <p>Finlume asks for internet access and, if you turn on price alerts or update notifications,
+     for permission to show notifications. It does not ask for contacts, location, camera,
+     microphone or files.</p>
+
+  <h2>6. Payment</h2>
+  <p>The full version is bought through Google Play. The transaction is handled entirely by
+     Google — we never see your payment details, only the fact that a purchase exists.</p>
+
+  <h2>7. Children</h2>
+  <p>The app is not directed at children and collects no data from anyone, regardless of age.</p>
+
+  <h2>8. Changes to this policy</h2>
+  <p>If this policy changes, the new version will appear on this page with a new date at the
+     top. Since we hold no contact details for anyone, there is no other way for us to notify
+     you — which is itself a consequence of collecting nothing.</p>
+
+  <h2>9. Your rights</h2>
+  <p>Data protection law gives you the right to access, correct and erase your personal data.
+     We hold none, so there is nothing for us to show or delete. Everything the app stores is in
+     your hands: clearing the app's data or uninstalling it removes all of it from the device.</p>
+</div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="terms.html">Terms of use</a>
+    <a href="mailto:gszczotka@gmail.com">Contact</a>
+  </div>
+  <p style="margin-top:12px">© 2026 Finlume</p>
+</footer>
+
+</body>
+</html>

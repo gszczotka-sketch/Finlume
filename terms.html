@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Use — Finlume</title>
+<meta name="description" content="Terms of use for Finlume. An analytical tool, not investment advice.">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #0C5F63; --accent: #4FD8C8; --accent-soft: #A2EFF3;
+  --ink-soft: #0A1413; --bg: #F5F9F8; --card: #fff;
+  --text: #171D1D; --text-light: #566; --line: #DCE6E4;
+}
+body {
+  font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.65;
+}
+nav {
+  background: var(--ink-soft); padding: 14px 20px; display: flex;
+  justify-content: space-between; align-items: center;
+}
+nav .logo { color: #fff; font-size: 20px; font-weight: 700; }
+nav .logo span { color: var(--accent); }
+nav a { color: var(--accent-soft); text-decoration: none; font-size: 15px; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 48px 20px 72px; }
+h1 { font-size: 34px; letter-spacing: -.5px; }
+.updated { color: var(--text-light); margin-top: 6px; font-size: 15px; }
+.lead {
+  background: #FFF6E5; border: 1px solid #F0DCB4; border-radius: 12px;
+  padding: 20px 22px; margin: 26px 0 8px; font-size: 17px; color: #5B4A12;
+}
+h2 { font-size: 22px; margin: 34px 0 10px; color: var(--primary); }
+p, li { font-size: 16px; }
+p + p { margin-top: 10px; }
+ul { margin: 10px 0 0 22px; }
+li { margin-bottom: 7px; }
+footer { background: var(--ink-soft); color: #9fb5b2; padding: 34px 20px; text-align: center; }
+footer a { color: var(--accent-soft); text-decoration: none; margin: 0 10px; }
+@media (max-width: 600px) {
+  h1 { font-size: 27px; }
+  .wrap { padding: 34px 18px 54px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Fin<span>lume</span></div>
+  <a href="index.html">&larr; Back to the app</a>
+</nav>
+
+<div class="wrap">
+  <h1>Terms of Use</h1>
+  <div class="updated">Last updated: 27 September 2026</div>
+
+  <div class="lead">
+    <strong>Finlume is an analytical tool, not an adviser.</strong> It does not recommend what
+    to buy or sell, does not forecast prices and does not assess whether any investment suits
+    you. Every decision about your money is yours alone, and you bear its consequences.
+  </div>
+
+  <h2>1. What the app is</h2>
+  <p>Finlume presents publicly available data filed with the U.S. Securities and Exchange
+     Commission: financial statements of listed companies, institutional portfolios from
+     Form 13F and insider transactions from Form 4. It also calculates ratios from those
+     figures and shows, for each one, the formula and the source lines it came from.</p>
+
+  <h2>2. No investment advice</h2>
+  <p>Nothing in the app constitutes investment advice, a recommendation, an offer or a
+     solicitation to buy or sell any financial instrument. Ratios, health scores and rankings
+     are calculations, not opinions about the future. Investing in listed companies carries the
+     risk of losing part or all of the money invested.</p>
+
+  <h2>3. Where the data comes from and its limits</h2>
+  <ul>
+    <li>SEC data is as current as what companies have filed. A company that has not filed a
+        statement has no figures in the app.</li>
+    <li>Form 13F portfolios describe positions as of the end of the previous quarter. That is
+        what the law requires of filers, not a shortcoming of the app.</li>
+    <li>Quotes, analyst targets and price history come from outside providers on your own API
+        keys, and are subject to those providers' terms and delays.</li>
+    <li>Written summaries are produced by a language model. They may contain mistakes; the app
+        shows the data that was sent, so you can check them.</li>
+  </ul>
+  <p>We make no warranty that the data is complete, accurate or uninterrupted, and we are not
+     liable for decisions taken on its basis.</p>
+
+  <h2>4. Free version and full version</h2>
+  <p>All SEC data and your own portfolio are available free of charge, without a time limit.
+     Six features — the screener, the upside ranking, the portfolio chart, CSV export, price
+     alerts and the home screen widget — form the full version: free for 30 days from
+     installation, then unlocked by a single purchase, without a subscription.</p>
+  <p>The purchase is made through Google Play and is governed by Google's terms. Refunds are
+     handled under Google Play's policy.</p>
+
+  <h2>5. Your own API keys</h2>
+  <p>Features that need quotes, forecasts, price history or model-written summaries run on keys
+     you obtain yourself from the providers concerned. You are bound by their terms and their
+     usage limits. Do not share keys that are not yours.</p>
+
+  <h2>6. Acceptable use</h2>
+  <p>Use the app for your own analysis. Do not use it to build a competing data service, to
+     scrape data at a scale that breaches the SEC's or the providers' terms, or to present its
+     output as investment advice to others.</p>
+
+  <h2>7. Liability</h2>
+  <p>The app is provided “as is”. To the extent permitted by law, the author is not liable for
+     any loss arising from its use, including investment losses, loss of data or interruptions
+     in the availability of outside services. This does not limit liability that cannot be
+     excluded under applicable law, including for damage caused intentionally.</p>
+
+  <h2>8. Changes</h2>
+  <p>These terms may change as the app develops. The current version is always the one on this
+     page, with its date at the top.</p>
+
+  <h2>9. Contact</h2>
+  <p>Questions and problem reports: <a href="mailto:gszczotka@gmail.com">gszczotka@gmail.com</a>.</p>
+</div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy policy</a>
+    <a href="mailto:gszczotka@gmail.com">Contact</a>
+  </div>
+  <p style="margin-top:12px">© 2026 Finlume</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finlume — US stock research from SEC filings, on your phone</title>
+<meta name="description" content="Screen 6,500 US companies on real SEC filings, follow what institutional investors hold, and track your own portfolio. No account, no ads, no data leaves your phone.">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #0C5F63;
+  --primary-dark: #08403F;
+  --accent: #4FD8C8;
+  --accent-soft: #A2EFF3;
+  --ink: #14251F;
+  --ink-soft: #0A1413;
+  --bg: #F5F9F8;
+  --card: #FFFFFF;
+  --text: #171D1D;
+  --text-light: #566;
+  --line: #DCE6E4;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- NAWIGACJA ---------- */
+nav {
+  background: var(--ink-soft);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,.35);
+}
+nav .logo { color: #fff; font-size: 20px; font-weight: 700; letter-spacing: .3px; }
+nav .logo span { color: var(--accent); }
+.nav-links { display: flex; }
+.nav-links a {
+  color: #cfe0dd; text-decoration: none; margin-left: 22px; font-size: 15px;
+  transition: color .2s;
+}
+.nav-links a:hover { color: #fff; }
+
+.hamburger {
+  display: none; flex-direction: column; gap: 5px; padding: 6px;
+  background: none; border: none; cursor: pointer;
+}
+.hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+
+.mobile-menu {
+  display: none; flex-direction: column; background: var(--ink);
+  position: sticky; top: 62px; z-index: 99; padding: 0 20px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: #dceae8; text-decoration: none; padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,.08); font-size: 16px;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  background: radial-gradient(120% 140% at 18% 20%, var(--ink) 0%, var(--ink-soft) 62%);
+  color: #fff;
+  padding: 72px 20px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(79,216,200,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,216,200,.05) 1px, transparent 1px);
+  background-size: 64px 50px;
+}
+.hero > * { position: relative; }
+.hero h1 {
+  font-size: 44px; line-height: 1.18; font-weight: 700; letter-spacing: -.8px;
+  max-width: 760px; margin: 0 auto;
+}
+.hero h1 span { color: var(--accent); }
+.hero p {
+  margin: 20px auto 0; max-width: 620px; font-size: 19px; color: #c8dbd8;
+}
+.btn-group { margin-top: 32px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-block; padding: 14px 28px; border-radius: 999px;
+  text-decoration: none; font-weight: 600; font-size: 16px; transition: transform .15s, opacity .15s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--accent); color: #06302E; }
+.btn-outline { border: 1px solid rgba(255,255,255,.4); color: #fff; }
+.badges { margin-top: 34px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.badge {
+  font-size: 14px; color: var(--accent-soft); border: 1px solid rgba(162,239,243,.3);
+  border-radius: 999px; padding: 6px 14px;
+}
+
+/* ---------- SEKCJE ---------- */
+.section { padding: 72px 20px; max-width: 1100px; margin: 0 auto; }
+.section-title { font-size: 32px; text-align: center; font-weight: 700; letter-spacing: -.4px; }
+.section-subtitle {
+  text-align: center; color: var(--text-light); max-width: 640px; margin: 12px auto 0; font-size: 17px;
+}
+
+.grid { margin-top: 44px; display: grid; gap: 20px; grid-template-columns: repeat(3, 1fr); }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 26px;
+}
+.card h3 { font-size: 19px; margin-bottom: 8px; color: var(--primary-dark); }
+.card p { color: var(--text-light); font-size: 15.5px; }
+.card .icon { font-size: 26px; display: block; margin-bottom: 10px; }
+
+/* ---------- JAK TO DZIAŁA ---------- */
+.steps { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.step {
+  display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: center;
+  max-width: 1000px; margin: 0 auto; padding: 54px 20px;
+}
+.step + .step { border-top: 1px solid var(--line); }
+/* Zdjęcie po lewej w co drugim kroku: razem z kolejnością trzeba zamienić
+   szerokości kolumn, bo siatka przypisuje je pozycyjnie, nie treścią. */
+.step:nth-child(even) { grid-template-columns: 300px 1fr; }
+.step:nth-child(even) .shot { order: -1; }
+.step .num {
+  display: inline-block; width: 34px; height: 34px; line-height: 34px; text-align: center;
+  border-radius: 50%; background: var(--primary); color: #fff; font-weight: 700; margin-bottom: 14px;
+}
+.step h3 { font-size: 24px; margin-bottom: 10px; letter-spacing: -.3px; }
+.step p { color: var(--text-light); font-size: 16.5px; }
+.step p + p { margin-top: 12px; }
+.shot img {
+  width: 100%; border-radius: 22px; border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(12,95,99,.16);
+  display: block;
+}
+
+/* ---------- CENNIK ---------- */
+.plans { margin-top: 44px; display: grid; gap: 22px; grid-template-columns: repeat(2, 1fr); }
+.plan { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 32px; }
+.plan.full { border-color: var(--primary); box-shadow: 0 10px 30px rgba(12,95,99,.12); }
+.plan h3 { font-size: 22px; color: var(--primary-dark); }
+.plan .price { font-size: 17px; color: var(--text-light); margin: 6px 0 18px; }
+.plan ul { list-style: none; }
+.plan li { padding: 7px 0 7px 26px; position: relative; font-size: 15.5px; }
+.plan li::before {
+  content: '✓'; position: absolute; left: 0; color: var(--primary); font-weight: 700;
+}
+
+/* ---------- FAQ ---------- */
+.faq { max-width: 820px; margin: 44px auto 0; }
+.faq details {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px 22px; margin-bottom: 12px;
+}
+.faq summary { font-weight: 600; cursor: pointer; font-size: 17px; }
+.faq p { color: var(--text-light); margin-top: 10px; font-size: 15.5px; }
+
+/* ---------- ZASTRZEŻENIE ---------- */
+.notice {
+  background: #FFF6E5; border: 1px solid #F0DCB4; border-radius: 14px;
+  padding: 22px; max-width: 820px; margin: 0 auto; color: #5B4A12; font-size: 15.5px;
+}
+
+/* ---------- STOPKA ---------- */
+footer { background: var(--ink-soft); color: #9fb5b2; padding: 44px 20px; text-align: center; }
+.footer-links { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.footer-links a { color: var(--accent-soft); text-decoration: none; font-size: 15px; }
+.footer-links a:hover { text-decoration: underline; }
+
+/* ---------- EKRANY WĄSKIE ---------- */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .step,
+  .step:nth-child(even) { grid-template-columns: 1fr; gap: 28px; }
+  .step:nth-child(even) .shot { order: 0; }
+  .shot { max-width: 300px; margin: 0 auto; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 52px 18px 60px; }
+  .hero h1 { font-size: 30px; }
+  .hero p { font-size: 16.5px; }
+  .section { padding: 52px 18px; }
+  .section-title { font-size: 26px; }
+  .plans { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 26px; }
+  .btn { padding: 12px 22px; font-size: 15px; }
+  .step h3 { font-size: 21px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Fin<span>lume</span></div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#plans">Free &amp; full</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features" onclick="closeMenu()">Features</a>
+  <a href="#how" onclick="closeMenu()">How it works</a>
+  <a href="#plans" onclick="closeMenu()">Free &amp; full</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+</div>
+
+<section class="hero">
+  <h1>The whole US market,<br><span>straight from SEC filings</span></h1>
+  <p>Screen 6,500 companies on what they actually filed, see which funds hold them,
+     and keep your own portfolio next to the data. On your phone, without an account.</p>
+  <div class="btn-group">
+    <a class="btn btn-primary" href="#how">See how it works</a>
+    <a class="btn btn-outline" href="#plans">What is free</a>
+  </div>
+  <div class="badges">
+    <div class="badge">6,500 companies</div>
+    <div class="badge">up to 1,000 fund portfolios</div>
+    <div class="badge">27 screener criteria</div>
+    <div class="badge">No ads · no account</div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <h2 class="section-title">What Finlume does</h2>
+  <p class="section-subtitle">Everything comes from documents filed with the U.S. Securities
+     and Exchange Commission. The app shows numbers and says where they came from.</p>
+
+  <div class="grid">
+    <div class="card">
+      <span class="icon">🔍</span>
+      <h3>Screen the market</h3>
+      <p>27 criteria in 10 groups — margins, return on equity, debt, liquidity, growth over
+         5 and 10 years, dividend streaks, health score, bankruptcy risk and institutional
+         interest. Six one-tap strategies or your own, saved under a name.</p>
+    </div>
+    <div class="card">
+      <span class="icon">🏛️</span>
+      <h3>Follow the funds</h3>
+      <p>Portfolios from Form 13F, position by position, with quarter-to-quarter changes:
+         who bought, who sold, who opened a new position — from the largest filers down to
+         boutique funds.</p>
+    </div>
+    <div class="card">
+      <span class="icon">📄</span>
+      <h3>Read the statements</h3>
+      <p>Ten years of annual reports and quarterly numbers, ten-year charts, the full balance
+         sheet, and the “Item 1. Business” section in the original wording.</p>
+    </div>
+    <div class="card">
+      <span class="icon">🧮</span>
+      <h3>Check every number</h3>
+      <p>Tap a figure to see the formula, the statement lines behind it, their XBRL tags and
+         the filing they came from — with a link straight to the SEC EDGAR archive.</p>
+    </div>
+    <div class="card">
+      <span class="icon">💼</span>
+      <h3>Track your portfolio</h3>
+      <p>Positions across several brokerage accounts, today's value, result against your
+         purchase cost, share of portfolio and a chart — in your own currency.</p>
+    </div>
+    <div class="card">
+      <span class="icon">🔔</span>
+      <h3>Know what changed</h3>
+      <p>Price alerts, an earnings calendar for the companies you hold or watch, and a home
+         screen widget with the value of your portfolio.</p>
+    </div>
+  </div>
+</section>
+
+<div class="steps" id="how">
+  <div style="max-width:1000px;margin:0 auto;padding:60px 20px 0;text-align:center">
+    <h2 class="section-title">How it works</h2>
+    <p class="section-subtitle">Five steps from “I have no idea what to look at”
+       to “I know why this company is on my list”.</p>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">1</span>
+      <h3>Start with a strategy</h3>
+      <p>Open the Screener and tap one of the six ready strategies — Quality, Growth,
+         Defensive, Dividend, Institutional pick, Strong fundamentals. Each one sets several
+         thresholds at once, and you can move any of them afterwards.</p>
+      <p>The counter says <strong>“161 of 1,452 evaluated”</strong> rather than just
+         “161 results”, because companies that have not filed a statement cannot be judged.
+         Finlume tells you how many those are instead of quietly dropping them.</p>
+    </div>
+    <div class="shot"><img src="img/01-screener-quality.png" alt="Screener with the Quality strategy"></div>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">2</span>
+      <h3>Find out what a criterion means</h3>
+      <p>Every criterion has an icon next to its name. It opens the formula, an explanation of
+         how to read the value — what counts as low, what as high — and the catch.</p>
+      <p>Current ratio, for instance, does not exist for banks and insurers: they do not split
+         the balance sheet into current and non-current. With that threshold on, they drop out
+         together with the companies that fail it, and the app says so.</p>
+    </div>
+    <div class="shot"><img src="img/03-criterion-help.png" alt="Explanation of a screener criterion"></div>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">3</span>
+      <h3>Read the company</h3>
+      <p>Revenue, profit and cash flow for the fiscal year or the trailing twelve months;
+         ten-year charts; ratios against the median of the company's sector; market valuation
+         once you add your own quote key.</p>
+      <p>The health score answers nine yes-or-no questions from the Piotroski method, and the
+         bankruptcy risk comes from the Altman Z'' model — both with the numbers that produced
+         them, not just a verdict.</p>
+    </div>
+    <div class="shot"><img src="img/06-health-score.png" alt="Health score and bankruptcy risk"></div>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">4</span>
+      <h3>See who else holds it</h3>
+      <p>On a company's page you see how many institutions hold it, how many added and how many
+         cut since the previous quarter — and your own position in the same list, so the
+         comparison is in one place.</p>
+      <p>Every filer also has its own profile: the full portfolio, position by position, with
+         what changed quarter to quarter.</p>
+    </div>
+    <div class="shot"><img src="img/16-price-dividend-holders.png" alt="How many institutions hold a company"></div>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">5</span>
+      <h3>Keep your portfolio next to the data</h3>
+      <p>Enter positions from as many brokerage accounts as you use. Finlume values them with
+         the quotes it already has, shows the result against your purchase cost and the share
+         of each position — converted to the currency you picked.</p>
+      <p>Nothing is sent anywhere. The portfolio lives on your phone.</p>
+    </div>
+    <div class="shot"><img src="img/10-portfolio.png" alt="Portfolio with valuation"></div>
+  </div>
+</div>
+
+<section class="section" id="plans">
+  <h2 class="section-title">Free and full version</h2>
+  <p class="section-subtitle">All SEC data is free, forever. The full version adds the tools
+     built on top of it — once, without a subscription.</p>
+
+  <div class="plans">
+    <div class="plan">
+      <h3>Free</h3>
+      <div class="price">No account, no ads, no time limit</div>
+      <ul>
+        <li>13F portfolios of institutional investors</li>
+        <li>Company profiles and financial statements</li>
+        <li>Ratios, sector medians, health score</li>
+        <li>Insider transactions from Form 4</li>
+        <li>Upside ranking against analyst targets</li>
+        <li>Your own portfolio with valuation</li>
+        <li>Watchlist and earnings calendar</li>
+        <li>Backup of your data</li>
+      </ul>
+    </div>
+    <div class="plan full">
+      <h3>Full version</h3>
+      <div class="price">30 days free, then one payment</div>
+      <ul>
+        <li>Screener with 27 criteria and saved sets</li>
+        <li>Portfolio chart</li>
+        <li>Export to CSV</li>
+        <li>Price alerts</li>
+        <li>Home screen widget</li>
+        <li>Everything from the free version</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <h2 class="section-title">Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Where does the data come from?</summary>
+      <p>From SEC EDGAR — the public archive of filings made by companies and institutions to
+         the U.S. market regulator. Annual and quarterly statements, Form 13F portfolios and
+         Form 4 insider transactions. Finlume reads them, it does not interpret them.</p>
+    </details>
+    <details>
+      <summary>Why do I need my own API keys?</summary>
+      <p>The SEC publishes filings, not share prices. Quotes, analyst targets, price history and
+         model-written briefs come from outside providers — Finnhub, Alpha Vantage, Twelve Data
+         and Google AI Studio. You enter your own keys, so you pay those providers directly
+         (their free tiers are enough for normal use) and nothing goes through us. These
+         features keep working even after the trial ends.</p>
+    </details>
+    <details>
+      <summary>Do you collect any data about me?</summary>
+      <p>No. There is no account, no analytics and no ads. Your portfolio, watchlist, price
+         alerts and API keys stay on the phone. The only thing that leaves it are requests to
+         the SEC and to the providers whose keys you entered.</p>
+    </details>
+    <details>
+      <summary>How current are the numbers?</summary>
+      <p>As current as what has been filed. Annual and quarterly statements appear once a
+         company submits them. Form 13F portfolios describe positions as of the end of the
+         previous quarter — that is what the law requires, not a limitation of the app.</p>
+    </details>
+    <details>
+      <summary>How much space does it take?</summary>
+      <p>That depends on how many institutions you follow. The slider goes up to 1,000, and each
+         portfolio is stored on the phone. Company statements for the whole market take a few
+         dozen megabytes; a thousand institutional portfolios take considerably more.</p>
+    </details>
+    <details>
+      <summary>Which languages does it support?</summary>
+      <p>English, Polish, Spanish, Portuguese, German, French, Japanese, Chinese and Korean —
+         including number and date formats.</p>
+    </details>
+  </div>
+
+  <div style="margin-top:38px">
+    <div class="notice">
+      <strong>Finlume is an analytical tool.</strong> It is not investment advice and gives no
+      recommendations, no price predictions and no buy or sell signals. Decisions about your
+      money are yours; the app only shows what companies and institutions have filed, and where
+      each number came from.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy policy</a>
+    <a href="terms.html">Terms of use</a>
+    <a href="mailto:gszczotka@gmail.com">Contact</a>
+  </div>
+  <p style="max-width:760px;margin:0 auto 14px;font-size:14px;line-height:1.5">All company and fund names are trademarks of their respective owners. Finlume is not affiliated with, endorsed by or sponsored by any of them.</p>
+  <p>© 2026 Finlume. Data from SEC EDGAR.</p>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click', function (e) {
+  var menu = document.getElementById('mobileMenu');
+  var burger = document.querySelector('.hamburger');
+  if (!menu.contains(e.target) && !burger.contains(e.target)) menu.classList.remove('open');
+});
+</script>
+
+</body>
+</html>
