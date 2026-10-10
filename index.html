@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Finlume — US stock research from SEC filings, on your phone</title>
-<meta name="description" content="Screen 6,500 US companies on real SEC filings, follow what institutional investors hold, and track your own portfolio. No account, no ads, no data leaves your phone.">
+<meta name="description" content="Check a stock before you buy: SEC filings of 6,500 US companies, what institutional investors hold, insider purchases — and your own portfolio against the index. No account, no ads, no data leaves your phone.">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -276,11 +276,12 @@ footer { background: var(--ink-soft); color: #9fb5b2; padding: 44px 20px; text-a
     <div class="card">
       <span class="icon">💼</span>
       <h3>Track your portfolio</h3>
-      <p>Positions across several brokerage accounts, today's value, result against your
-         purchase cost, share of portfolio and a chart — in your own currency. Portfolio results
-         show your return over time against the S&amp;P 500 or Nasdaq 100, and a dividend
-         forecast shows how much your holdings should pay per year. Purchases can be imported
-         from your broker's account history file (XTB).</p>
+      <p>Positions across several brokerage accounts — US stocks plus ETFs and shares from
+         exchanges worldwide — with today's value, result against your purchase cost, share of
+         portfolio and a chart, in your own currency. Portfolio results show your return over
+         time against the S&amp;P 500 or Nasdaq 100, and a dividend forecast shows how much your
+         holdings should pay per year. Purchases can be imported from your broker's account
+         history file (XTB).</p>
     </div>
     <div class="card">
       <span class="icon">🔔</span>
@@ -361,6 +362,9 @@ footer { background: var(--ink-soft); color: #9fb5b2; padding: 44px 20px; text-a
          from your broker's account history file (XTB today). Finlume values them with the
          quotes it already has, shows the result against your purchase cost and the share of
          each position — converted to the currency you picked.</p>
+      <p>ETFs and shares listed outside the US get their own profile: the closing price in the
+         currency they trade in, the daily change, a price chart, a price alert in that currency
+         and your position — with a plain note on what SEC data they do not have.</p>
       <p>Below the total you see roughly how much your holdings pay in dividends per year and
          what that is as a percentage of your purchase cost, with the details per company and
          per broker.</p>
@@ -385,12 +389,13 @@ footer { background: var(--ink-soft); color: #9fb5b2; padding: 44px 20px; text-a
         <li>Ratios, sector medians, health score</li>
         <li>Insider transactions from Form 4</li>
         <li>Upside ranking against analyst targets (the largest companies on a free FMP key)</li>
-        <li>Price alerts on your own key</li>
+        <li>Price alerts on your own key, also for ETFs and shares outside the US</li>
         <li>Your own portfolio with valuation</li>
         <li>Dividend income forecast</li>
         <li>Import of purchases from XTB</li>
         <li>Notifications about insider purchases</li>
         <li>Watchlist and earnings calendar</li>
+        <li>Model-written summaries of a company's filings, on your own key</li>
         <li>Backup of your data</li>
       </ul>
     </div>
@@ -421,9 +426,9 @@ footer { background: var(--ink-soft); color: #9fb5b2; padding: 44px 20px; text-a
     <details>
       <summary>Why do I need my own API keys?</summary>
       <p>The SEC publishes filings, not share prices. Quotes, analyst targets, price history and
-         model-written briefs come from outside providers — Finnhub, Alpha Vantage, Twelve Data
-         and Google AI Studio. You enter your own keys, so you pay those providers directly
-         (their free tiers are enough for normal use) and nothing goes through us. These
+         model-written briefs come from outside providers — Finnhub, FMP, Alpha Vantage, EODHD,
+         Twelve Data and Google AI Studio. You enter your own keys, so you pay those providers directly
+         (their free plans cover most features) and nothing goes through us. These
          features keep working even after the trial ends.</p>
     </details>
     <details>
