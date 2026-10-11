@@ -56,13 +56,14 @@ footer a { color: var(--accent-soft); text-decoration: none; margin: 0 10px; }
 
 <div class="wrap">
   <h1>Privacy Policy</h1>
-  <div class="updated">Last updated: 9 October 2026</div>
+  <div class="updated">Last updated: 11 October 2026</div>
 
   <div class="lead">
     <strong>Finlume does not collect, store or transmit any personal data.</strong>
-    There is no account, no registration, no analytics and no advertising. Everything you
-    enter — your portfolio, your watchlist, your price alerts and your API keys — stays on
-    your device.
+    There is no account, no registration, no analytics and no advertising. Your portfolio,
+    your watchlist, your price alerts and your API keys stay on your device. The only thing
+    you type that ever leaves it is a question you choose to send to the screener assistant
+    (section 3).
   </div>
 
   <h2>1. Who is responsible</h2>
@@ -120,8 +121,13 @@ footer a { color: var(--accent-soft); text-decoration: none; margin: 0 10px; }
     </tr>
     <tr>
       <td>Google AI Studio</td>
-      <td>The figures from the company's statements shown on screen, plus your own API key.</td>
-      <td>A written summary of those figures, on your explicit request.</td>
+      <td>For a company summary: the figures from the company's statements shown on screen and
+          excerpts of its SEC filings (the discussion of results, the risk factors and recent
+          current reports). For the screener assistant: the text of your question, the list of
+          screener criteria with their descriptions and the thresholds currently set. Always
+          with your own API key — never your portfolio, price alerts or watchlist.</td>
+      <td>A written summary of a company, or an answer and suggested criteria in the screener —
+          only when you press the button.</td>
     </tr>
     <tr>
       <td>Frankfurter (European Central Bank reference rates)</td>
@@ -135,8 +141,15 @@ footer a { color: var(--accent-soft); text-decoration: none; margin: 0 10px; }
     </tr>
   </table>
 
+  <p><strong>Questions to the screener assistant</strong> are sent to Google exactly as you
+     typed them. On the free plan of Google AI Studio, Google may use the content it receives to
+     improve its models and people may read it, so do not include personal data or details of
+     your portfolio in a question. If you ask by voice, speech is turned into text by your
+     phone's own speech recognition service before the app sees it; the app receives only the
+     text and never records audio.</p>
+
   <p>All of these are optional except SEC EDGAR. Without the keys the app works on SEC data
-     alone; it simply has no quotes, no forecasts and no summaries. You can remove a key at any
+     alone; it simply has no quotes, no forecasts, no summaries and no assistant. You can remove a key at any
      time in Settings — removing the quote key also deletes the quotes stored on the device,
      as that provider's terms require.</p>
 
